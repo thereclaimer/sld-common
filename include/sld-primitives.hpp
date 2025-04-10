@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+#define NULL 0
+
 namespace sld {
 
     //signed integers
