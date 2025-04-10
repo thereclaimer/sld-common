@@ -1,7 +1,9 @@
 #ifndef SLD_TYPES_HPP
 #define SLD_TYPES_HPP
 
-#include "sld-common.hpp"
+#include "sld-primitives.hpp"
+
+using namespace sld;
 
 /**********************************************************************************/
 /* FORWARD DECLARATIONS                                                           */
@@ -12,7 +14,7 @@ namespace sld {
     struct memory_t;
     struct iterator_t;
 
-    ptr iterate()
+    ptr iterate(iterator_t* i);
 };
 
 /**********************************************************************************/
@@ -27,10 +29,27 @@ namespace sld {
     };
 
     struct iterator_t {
-        ptr start;
-        u32 index;
-        u32 stride;
+        addr start;
+        u64  count;
+        u32  index;
+        u32  stride;
     };
 };
+
+static inline ptr 
+sld::iterate(iterator_t* iter) {
+
+    const u32  offset  = iter->stride * iter->index;
+    const addr address = iter->start  + offset;
+
+    if (iter->index < iter->count) {
+
+        ptr result = (ptr)address;
+        ++iter->index;
+
+        return(result);
+    }
+    return(NULL);
+}
 
 #endif //SLD_TYPES_HPP

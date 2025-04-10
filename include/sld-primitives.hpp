@@ -30,6 +30,11 @@ namespace sld {
     //chars
     typedef char     c8;
     typedef wchar_t  c16;
+
+    //memory
+    typedef void*    ptr;
+    typedef intptr_t addr;
+    typedef int8_t   byte;
 };
 
 
